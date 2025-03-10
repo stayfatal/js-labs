@@ -155,10 +155,6 @@ window.onload = function () {
         outputElement.classList.toggle("color-change");
     };
 
-    document.getElementById("btn_op_change_result_color").onclick = function () {
-        outputElement.classList.toggle("color-change");
-    };
-
     document.getElementById("btn_freq").onclick = function () {
         if (a !== '' && !selectedOperation) {
             freq = parseFloat(a);
