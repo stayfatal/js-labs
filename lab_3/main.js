@@ -1,4 +1,4 @@
-import { MainPage } from './pages/main-page/index.js';
+import { MainPage } from './pages/main/index.js';
 
 // Находим корневой элемент, куда будет рендериться страница
 const root = document.getElementById('root');
