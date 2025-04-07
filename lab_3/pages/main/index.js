@@ -118,7 +118,7 @@ export class MainPage {
                     <h5 class="card-title">Duplicate Requests</h5>
                     <p class="card-text text-muted small">Count duplicate items in your request history</p>
                     <div class="mb-3">
-                        <label class="form-label">Enter items (comma separated):</label>
+                        <label class="form-label">Enter items:</label>
                         <input type="text" class="form-control" id="duplicatesInput" value="GET users, POST auth, GET users, GET items, POST auth">
                     </div>
                     <button id="btn-count-dublicates" class="btn btn-postman w-100" onclick="calculateDuplicates()">Count Duplicates</button>
@@ -134,7 +134,7 @@ export class MainPage {
                     <h5 class="card-title">Response Time Avg</h5>
                     <p class="card-text text-muted small">Calculate average response time</p>
                     <div class="mb-3">
-                        <label class="form-label">Enter numbers (comma separated):</label>
+                        <label class="form-label">Enter numbers:</label>
                         <input type="text" class="form-control" id="averageInput" value="200, 150, 180, 220, 190">
                     </div>
                     <button id="btn-calculate-average" class="btn btn-postman w-100" onclick="calculateAverage()">Calculate Average</button>
@@ -150,9 +150,9 @@ export class MainPage {
                     <h5 class="card-title">Merge Status Codes</h5>
                     <p class="card-text text-muted small">Merge and sort status codes</p>
                     <div class="mb-3">
-                        <label class="form-label">Array 1 (comma separated):</label>
+                        <label class="form-label">Array 1:</label>
                         <input type="text" class="form-control mb-2" id="array1Input" value="200, 404, 500">
-                        <label class="form-label">Array 2 (comma separated):</label>
+                        <label class="form-label">Array 2:</label>
                         <input type="text" class="form-control" id="array2Input" value="301, 200, 403">
                     </div>
                     <button id="btn-merge-and-sort" class="btn btn-postman w-100" onclick="mergeArrays()">Merge & Sort</button>
@@ -168,7 +168,7 @@ export class MainPage {
                     <h5 class="card-title">Find Similar Endpoints</h5>
                     <p class="card-text text-muted small">Group endpoint names by similarity</p>
                     <div class="mb-3">
-                        <label class="form-label">Enter words (comma separated):</label>
+                        <label class="form-label">Enter words:</label>
                         <input type="text" class="form-control" id="anagramsInput" value="listen, silent, post, stop, tops, pots, get">
                     </div>
                     <button id="btn-find-anagrams" class="btn btn-postman w-100" onclick="findAnagrams()">Find Anagrams</button>
@@ -285,7 +285,7 @@ export class MainPage {
 		let newCard={...this.firstCard}
 		newCard.id=this.data.length+1
 		this.data.push(newCard)
-		this.render()
+		this.renderCards()
 		console.log(this.data)
 	}
 
