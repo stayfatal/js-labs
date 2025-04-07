@@ -3,13 +3,14 @@ window.onload = function () {
     let b = '';
     let expressionResult = '';
     let selectedOperation = null;
-    let accumulatedSum = 0;
-    let accumulatedSubtraction = 0;
+    let outputElement = document.getElementById("result");
+    let digitButtons = document.querySelectorAll('[id ^= "btn_digit_"]');
 
-    let freq = 0, observerSpeed = 0, sourceSpeed = 0, time = 0;
-    
-    outputElement = document.getElementById("result");
-    digitButtons = document.querySelectorAll('[id ^= "btn_digit_"]');
+    const speedOfWave = 343
+    const originalFreq = 1000
+
+    let freqShift = 0
+    let timeDelay = 0
 
     function onDigitButtonClicked(digit) {
         if (!selectedOperation) {
@@ -54,8 +55,6 @@ window.onload = function () {
         b = '';
         selectedOperation = '';
         expressionResult = '';
-        accumulatedSum = 0;
-        accumulatedSubtraction = 0;
         outputElement.innerHTML = 0;
     };
 
@@ -83,7 +82,6 @@ window.onload = function () {
         outputElement.innerHTML = a;
     };
 
-    
     document.getElementById("btn_op_sign").onclick = function () {
         if (a !== '' && !selectedOperation) {
             a = (-a).toString();
@@ -94,15 +92,13 @@ window.onload = function () {
         }
     };
 
-    
     document.getElementById("btn_op_percent").onclick = function () {
         if (a !== '' && !selectedOperation) {
-            a =  (a/ 100).toString();
+            a = (a / 100).toString();
             outputElement.innerHTML = a;
         }
     };
 
-    
     document.getElementById("btn_op_backspace").onclick = function () {
         if (!selectedOperation && a !== '') {
             a = a.slice(0, -1);
@@ -113,12 +109,10 @@ window.onload = function () {
         }
     };
 
-    
     document.getElementById("themeToggle").onclick = function () {
         document.body.classList.toggle("blue-theme");
     };
 
-    
     document.getElementById("btn_op_sqrt").onclick = function () {
         if (a !== '' && !selectedOperation) {
             a = Math.sqrt(+a).toString();
@@ -126,7 +120,6 @@ window.onload = function () {
         }
     };
 
-    
     document.getElementById("btn_op_square").onclick = function () {
         if (a !== '' && !selectedOperation) {
             a = Math.pow(+a, 2).toString();
@@ -134,7 +127,6 @@ window.onload = function () {
         }
     };
 
-    
     document.getElementById("btn_op_factorial").onclick = function () {
         function factorial(n) {
             return n <= 1 ? 1 : n * factorial(n - 1);
@@ -145,51 +137,40 @@ window.onload = function () {
         }
     };
 
-    
     document.getElementById("btn_op_triple_zero").onclick = function () {
         onDigitButtonClicked('000');
     };
 
-    
     document.getElementById("btn_op_change_result_color").onclick = function () {
         outputElement.classList.toggle("color-change");
     };
 
     document.getElementById("btn_freq").onclick = function () {
         if (a !== '' && !selectedOperation) {
-            freq = parseFloat(a);
+            freqShift = parseFloat(a);
             outputElement.innerHTML = 0;
             a = '';
         }
     };
-    
-    document.getElementById("btn_speed").onclick = function () {
-        if (a !== '' && !selectedOperation) {
-            sourceSpeed = parseFloat(a);
-            outputElement.innerHTML = 0;
-            a = '';
-        }
-    };
-    
+
     document.getElementById("btn_time").onclick = function () {
         if (a !== '' && !selectedOperation) {
-            time = parseFloat(a);
+            timeDelay = parseFloat(a);
             outputElement.innerHTML = 0;
             a = '';
         }
     };
-    
-    
+
     document.getElementById("btn_calculate").onclick = function () {
-        if (freq && sourceSpeed && time) {
-            
-            const speedOfSound = 343;  
-            const observedFreq = freq * ((speedOfSound + observerSpeed) / (speedOfSound - sourceSpeed));
-            const distance = sourceSpeed * time;
+        if (freqShift && timeDelay) {
+    
+            const velocity = (freqShift * speedOfWave) / (2 * originalFreq);
+    
+            const distance = (speedOfWave * timeDelay) / 2;
             
             outputElement.innerHTML = `
-                f=${observedFreq.toFixed(2)} Гц<br>
-                S=${distance.toFixed(2)} м
+                v = ${velocity.toFixed(2)} м/с<br>
+                S = ${distance.toFixed(2)} м
             `;
         }
     };
