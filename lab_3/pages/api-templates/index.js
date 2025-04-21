@@ -1,4 +1,4 @@
-import { BackButtonComponent } from '../../components/back-button/index.js'
+import { HomeButtonComponent } from '../../components/home-button/index.js'
 import { CaruselComponent } from '../../components/carusel/index.js'
 import { MainPage } from '../main/index.js'
 
@@ -109,12 +109,14 @@ export class ApiTemplatesPage {
     <div id="api-templates-page">
         <div class="main-container">
             <!-- Шапка -->
-            <div class="header">
-                <div id="back-button-container"></div>
-                <div class="header-center">
-                    <h4 class="header-title">${this.data.title}</h4>
+            <header class="navbar navbar-expand-lg navbar-dark bg-white sticky-top">
+                <div class="container-fluid">
+                    <div id="home-button-container"></div>
                 </div>
-                <div></div>
+            </header>
+
+            <div class="header-center">
+                <h4 class="header-title">${this.data.title}</h4>
             </div>
 
             <div class="carousel-container" id="carousel-container"></div>
@@ -132,9 +134,9 @@ export class ApiTemplatesPage {
 		const html = this.getHTML()
 		this.parent.insertAdjacentHTML('beforeend', html)
 
-		const backButtonContainer = document.getElementById('back-button-container')
-		const backButton = new BackButtonComponent(backButtonContainer)
-		backButton.render(this.clickBack.bind(this))
+		const homeButtonContainer = document.getElementById('home-button-container')
+		const homeButton = new HomeButtonComponent(homeButtonContainer)
+		homeButton.render(this.clickBack.bind(this))
 
 		const carouselContainer = document.getElementById('carousel-container')
 		const carousel = new CaruselComponent(carouselContainer)
