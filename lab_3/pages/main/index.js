@@ -241,68 +241,68 @@ export class MainPage {
 
     calculateDuplicates() {
         const input = document.getElementById('duplicatesInput').value;
-        const arr = input.split(',').map(item => item.trim()).filter(item => item);
+        const requests = input.split(',').map(item => item.trim()).filter(item => item);
         
-        const countMap = {};
-        let duplicates = 0;
+        const dublicateRequestMap = {};
+        let duplicatesCounter = 0;
         
-        for (const item of arr) {
-            countMap[item] = (countMap[item] || 0) + 1;
-            if (countMap[item] === 2) {
-                duplicates++;
+        for (const item of requests) {
+            dublicateRequestMap[item] = (dublicateRequestMap[item] || 0) + 1;
+            if (dublicateRequestMap[item] === 2) {
+                duplicatesCounter++;
             }
         }
         
         document.getElementById('duplicatesResult').innerHTML = 
-            `<span class="text-success">${duplicates}</span> дубликат(ов) найдено в:<br><small>${JSON.stringify(arr)}</small>`;
+            `<span class="text-success">${duplicatesCounter}</span> дубликат(ов) найдено в:<br><small>${JSON.stringify(requests)}</small>`;
     }
 
     calculateAverage() {
         const input = document.getElementById('averageInput').value;
-        const arr = input.split(',').map(Number).filter(num => !isNaN(num));
+        const responseTime = input.split(',').map(Number).filter(num => !isNaN(num));
         
-        if (arr.length === 0) {
+        if (responseTime.length === 0) {
             document.getElementById('averageResult').textContent = 'Пожалуйста, введите корректные числа';
             return;
         }
         
-        const sum = arr.reduce((acc, val) => acc + val, 0);
-        const avg = sum / arr.length;
+        const sumRespTime = responseTime.reduce((acc, val) => acc + val, 0);
+        const avgRespTime = sumRespTime / responseTime.length;
         
         document.getElementById('averageResult').innerHTML = 
-            `Среднее: <span class="text-success">${avg.toFixed(2)}</span><br>Из: ${JSON.stringify(arr)}`;
+            `Среднее: <span class="text-success">${avgRespTime.toFixed(2)}</span><br>Из: ${JSON.stringify(responseTime)}`;
     }
 
     mergeArrays() {
         const input1 = document.getElementById('array1Input').value;
         const input2 = document.getElementById('array2Input').value;
         
-        const arr1 = input1.split(',').map(Number).filter(num => !isNaN(num));
-        const arr2 = input2.split(',').map(Number).filter(num => !isNaN(num));
+        const statusCodes1 = input1.split(',').map(Number).filter(num => !isNaN(num));
+        const statusCodes2 = input2.split(',').map(Number).filter(num => !isNaN(num));
         
-        const merged = [...arr1, ...arr2];
-        const sorted = merged.sort((a, b) => b - a);
+        const mergedStatusCodes = [...statusCodes1, ...statusCodes2];
+        const sortedStatusCodes = mergedStatusCodes.sort((a, b) => b - a);
         
         document.getElementById('mergeResult').innerHTML = 
-            `Отсортированный результат: <span class="text-success">${sorted.join(' ')}</span><br>
-             Объединено из: ${JSON.stringify(arr1)} и ${JSON.stringify(arr2)}`;
+            `Отсортированный результат: <span class="text-success">${sortedStatusCodes.join(' ')}</span><br>
+             Объединено из: ${JSON.stringify(statusCodes1)} и ${JSON.stringify(statusCodes2)}`;
     }
 
     findAnagrams() {
         const input = document.getElementById('anagramsInput').value;
-        const words = input.split(',').map(word => word.trim()).filter(word => word);
+        const endpoints = input.split(',').map(word => word.trim()).filter(word => word);
         
-        const groups = {};
+        const endpointGroups = {};
         
-        for (const word of words) {
+        for (const word of endpoints) {
             const sorted = word.toLowerCase().split('').sort().join('');
-            if (!groups[sorted]) {
-                groups[sorted] = [];
+            if (!endpointGroups[sorted]) {
+                endpointGroups[sorted] = [];
             }
-            groups[sorted].push(word);
+            endpointGroups[sorted].push(word);
         }
         
-        const result = Object.values(groups)
+        const result = Object.values(endpointGroups)
             .filter(group => group.length >= 2)
             .map(group => group.sort())
             .sort((a, b) => a[0].localeCompare(b[0]));
