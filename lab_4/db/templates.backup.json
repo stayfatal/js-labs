@@ -1,0 +1,86 @@
+[
+  {
+    "id": 1,
+    "title": "Шаблоны для бэкенд-разработчиков",
+    "elements": [
+      {
+        "title": "Тестирование API сценариев",
+        "description": "Тестируйте сценарии API, перебирая набор данных и запуская workflows на основе ответов.",
+        "src": "https://voyager.postman.com/icon/workflows-postman-icon.svg"
+      },
+      {
+        "title": "Основы тестирования API",
+        "description": "Научитесь писать базовые тесты API, используя синтаксис тестов Postman.",
+        "src": "https://voyager.postman.com/icon/learning-documentation-icon-postman.svg"
+      },
+      {
+        "title": "Асинхронные операции",
+        "description": "Ускорьте процесс создания и выполнения запросов в асинхронном формате.",
+        "src": "https://voyager.postman.com/icon/agility.svg"
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "title": "Шаблоны для фронтенд-разработчиков",
+    "elements": [
+      {
+        "title": "Документация API",
+        "description": "Создавайте красивую документацию API с использованием Markdown. Упростите рабочий процесс с чистым и читаемым синтаксисом.",
+        "src": "https://voyager.postman.com/icon/appplication-performance-icon-postman.svg"
+      },
+      {
+        "title": "Прототипирование API",
+        "description": "Быстро освоите создание прототипа API в Postman.",
+        "src": "https://voyager.postman.com/icon/learning-documentation-icon-postman.svg"
+      },
+      {
+        "title": "API управления контентом",
+        "description": "Эндпоинты для управления постами, медиа, комментариями и лайками.",
+        "src": "https://voyager.postman.com/icon/engineer-onboarding-icon-postman.svg"
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "title": "Шаблоны для фулстек-разработчиков",
+    "elements": [
+      {
+        "title": "Инфраструктура Amazon Web Services",
+        "description": "Управляйте облачными инстансами и хранилищами с использованием AWS API.",
+        "src": "https://voyager.postman.com/icon/from-collection.svg"
+      },
+      {
+        "title": "Проверка уязвимостей API",
+        "description": "Проверьте ваш API на распространенные уязвимости и улучшите его безопасность и надежность.",
+        "src": "https://voyager.postman.com/icon/bug-error-icon-postman.svg"
+      },
+      {
+        "title": "Методы авторизации",
+        "description": "Узнайте больше о различных типах авторизации и быстро настройте помощников авторизации для вашего API в Postman.",
+        "src": "https://voyager.postman.com/icon/auth-postman-icon.svg"
+      }
+    ]
+  },
+  {
+    "id": 4,
+    "title": "Шаблоны для инженеров по качеству",
+    "elements": [
+      {
+        "title": "End-to-end тестирование",
+        "description": "Тестируйте функциональность и производительность вашего API, имитируя реальные пользовательские сценарии.",
+        "src": "https://skills-assets.pstmn.io/collection-templates/end-to-end-testing-icon.svg"
+      },
+      {
+        "title": "Контрактное тестирование",
+        "description": "Тестируйте взаимодействия между двумя отдельными системами на основе контрактов между ними.",
+        "src": "https://voyager.postman.com/icon/api-data-contract-icon-postman.svg"
+      },
+      {
+        "title": "Функциональное тестирование",
+        "description": "Проверяйте точность, надежность и соответствие API функциональным спецификациям.",
+        "src": "https://voyager.postman.com/icon/learning-documentation-icon-postman.svg"
+      }
+    ]
+  }
+]
