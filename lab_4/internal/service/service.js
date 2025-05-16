@@ -1,6 +1,9 @@
+const { IDCounter } = require('../db/counter');
+
 class Service {
     constructor(repository) {
       this.repo = repository;
+      this.idCounter = new IDCounter();
     }
   
     findTemplates(filters = {}) {
@@ -11,7 +14,13 @@ class Service {
     }
   
     addTemplate(data) {
-      return this.repo.insert(data);
+      // Генерируем новый ID и добавляем его к данным
+      const newId = this.idCounter.getNextId();
+      const templateData = {
+        ...data,
+        id: newId
+      };
+      return this.repo.insert(templateData);
     }
   
     updateTemplate(id, updatedData) {

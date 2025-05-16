@@ -1,15 +1,17 @@
 class TemplateDTO {
 	constructor(data) {
 	  TemplateDTO._validate(data);
-	  this.id = data.id;
+	  this.id = data.id || null;
 	  this.title = data.title;
 	  this.elements = data.elements;
 	}
   
 	static _validate(data) {
-	  const numberId = Number.parseInt(data.id);
-	  if (Number.isNaN(numberId)) {
-		throw new Error('Invalid template ID');
+	  if (data.id !== undefined) {
+		const numberId = Number.parseInt(data.id);
+		if (Number.isNaN(numberId)) {
+		  throw new Error('Invalid template ID');
+		}
 	  }
   
 	  if (!data.title || typeof data.title !== 'string') {
