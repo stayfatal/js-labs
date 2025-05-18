@@ -82,39 +82,41 @@ export class EditPage {
         mainPage.render()
     }
 
-    loadCardData() {
-        ajax.get(templateUrls.getTemplateById(this.cardId), (data, status) => {
-            if (status === 200 && data) {
-                // Заполняем форму данными карточки
-                document.getElementById('title').value = data.title
+    async loadCardData() {
+        try {
+            const result = await ajax.get(templateUrls.getTemplateById(this.cardId));
+            if (result.status === 200 && result.data) {
+                document.getElementById('title').value = result.data.title;
                 
-                data.elements.forEach((element, index) => {
-                    const num = index + 1
-                    document.getElementById(`element${num}-title`).value = element.title
-                    document.getElementById(`element${num}-description`).value = element.description
-                    document.getElementById(`element${num}-src`).value = element.src
-                })
+                result.data.elements.forEach((element, index) => {
+                    const num = index + 1;
+                    document.getElementById(`element${num}-title`).value = element.title;
+                    document.getElementById(`element${num}-description`).value = element.description;
+                    document.getElementById(`element${num}-src`).value = element.src;
+                });
             } else {
-                console.error('Ошибка загрузки данных карточки:', status, data)
-                this.clickBack()
+                console.error('Ошибка загрузки данных карточки:', result.status, result.data);
+                this.clickBack();
             }
-        })
+        } catch (error) {
+            console.error('Ошибка при загрузке данных карточки:', error);
+            this.clickBack();
+        }
     }
 
     render() {
-        this.parent.innerHTML = ''
-        this.parent.insertAdjacentHTML('beforeend', this.getHTML())
+        this.parent.innerHTML = '';
+        this.parent.insertAdjacentHTML('beforeend', this.getHTML());
 
-        const homeButtonContainer = document.getElementById('home-button-container')
-        const homeButton = new HomeButtonComponent(homeButtonContainer)
-        homeButton.render(this.clickBack.bind(this))
+        const homeButtonContainer = document.getElementById('home-button-container');
+        const homeButton = new HomeButtonComponent(homeButtonContainer);
+        homeButton.render(this.clickBack.bind(this));
 
-        // Загружаем данные карточки
-        this.loadCardData()
+        this.loadCardData();
 
-        const form = document.getElementById('edit-form')
-        form.addEventListener('submit', (e) => {
-            e.preventDefault()
+        const form = document.getElementById('edit-form');
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
             
             const updatedCard = {
                 id: this.cardId,
@@ -136,17 +138,18 @@ export class EditPage {
                         src: document.getElementById('element3-src').value
                     }
                 ]
-            }
+            };
 
-            ajax.put(templateUrls.updateTemplate(this.cardId), updatedCard, (data, status) => {
-                if (status === 200) {
-                    // В случае успеха возвращаемся на главную страницу
-                    this.clickBack()
+            try {
+                const result = await ajax.put(templateUrls.updateTemplate(this.cardId), updatedCard);
+                if (result.status === 200) {
+                    this.clickBack();
                 } else {
-                    console.error('Ошибка обновления карточки:', status, data)
-                    // Здесь можно добавить отображение ошибки пользователю
+                    console.error('Ошибка обновления карточки:', result.status, result.data);
                 }
-            })
-        })
+            } catch (error) {
+                console.error('Ошибка при обновлении карточки:', error);
+            }
+        });
     }
 } 

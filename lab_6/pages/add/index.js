@@ -82,16 +82,16 @@ export class AddPage {
     }
 
     render() {
-        this.parent.innerHTML = ''
-        this.parent.insertAdjacentHTML('beforeend', this.getHTML())
+        this.parent.innerHTML = '';
+        this.parent.insertAdjacentHTML('beforeend', this.getHTML());
 
-        const homeButtonContainer = document.getElementById('home-button-container')
-        const homeButton = new HomeButtonComponent(homeButtonContainer)
-        homeButton.render(this.clickBack.bind(this))
+        const homeButtonContainer = document.getElementById('home-button-container');
+        const homeButton = new HomeButtonComponent(homeButtonContainer);
+        homeButton.render(this.clickBack.bind(this));
 
-        const form = document.getElementById('add-form')
-        form.addEventListener('submit', (e) => {
-            e.preventDefault()
+        const form = document.getElementById('add-form');
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
             
             const newCard = {
                 title: document.getElementById('title').value,
@@ -112,17 +112,18 @@ export class AddPage {
                         src: document.getElementById('element3-src').value
                     }
                 ]
-            }
+            };
 
-            ajax.post(templateUrls.createTemplate(), newCard, (data, status) => {
-                if (status === 201) {
-                    // В случае успеха возвращаемся на главную страницу
-                    this.clickBack()
+            try {
+                const result = await ajax.post(templateUrls.createTemplate(), newCard);
+                if (result.status === 201) {
+                    this.clickBack();
                 } else {
-                    console.error('Ошибка создания карточки:', status, data)
-                    // Здесь можно добавить отображение ошибки пользователю
+                    console.error('Ошибка создания карточки:', result.status, result.data);
                 }
-            })
-        })
+            } catch (error) {
+                console.error('Ошибка при создании карточки:', error);
+            }
+        });
     }
 } 

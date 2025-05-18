@@ -15,18 +15,22 @@ export class MainPage {
         this.handleSearch = this.handleSearch.bind(this)
     }
 
-    getData() {
-        ajax.get(templateUrls.getTemplates(), (data, status) => {
-            if (status === 200 && data) {
-                this.data = data
-                this.renderCards(this.data, true)
+    async getData() {
+        try {
+            const result = await ajax.get(templateUrls.getTemplates());
+            if (result.status === 200 && result.data) {
+                this.data = result.data;
+                this.renderCards(this.data, true);
             } else {
-                console.error('Ошибка получения данных:', status)
-                // В случае ошибки показываем пустой список
-                this.data = []
-                this.renderCards(this.data, true)
+                console.error('Ошибка получения данных:', result.status);
+                this.data = [];
+                this.renderCards(this.data, true);
             }
-        })
+        } catch (error) {
+            console.error('Ошибка при получении данных:', error);
+            this.data = [];
+            this.renderCards(this.data, true);
+        }
     }
 
     get pageRoot() {
@@ -86,15 +90,18 @@ export class MainPage {
         addPage.render()
     }
 
-    handleRemoveCard(cardId) {
-        ajax.delete(templateUrls.deleteTemplate(cardId), (data, status) => {
-            if (status === 200) {
-                this.data = this.data.filter(item => item.id !== cardId)
-                this.renderCards(this.data, true)
+    async handleRemoveCard(cardId) {
+        try {
+            const result = await ajax.delete(templateUrls.deleteTemplate(cardId));
+            if (result.status === 200) {
+                this.data = this.data.filter(item => item.id !== cardId);
+                this.renderCards(this.data, true);
             } else {
-                console.error('Ошибка удаления карточки:', status)
+                console.error('Ошибка удаления карточки:', result.status);
             }
-        })
+        } catch (error) {
+            console.error('Ошибка при удалении карточки:', error);
+        }
     }
 
     render() {
