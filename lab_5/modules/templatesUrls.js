@@ -7,6 +7,10 @@ class TemplateUrls {
         return `${this.baseUrl}/templates`;
     }
 
+    getTemplatesWithSearch(searchTerm) {
+        return `${this.baseUrl}/templates?title=${encodeURIComponent(searchTerm)}`;
+    }
+
     getTemplateById(id) {
         return `${this.baseUrl}/templates/${id}`;
     }

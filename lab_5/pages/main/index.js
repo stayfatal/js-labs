@@ -11,20 +11,16 @@ import { templateUrls } from '../../modules/templatesUrls.js'
 export class MainPage {
     constructor(parent) {
         this.parent = parent
-        this.data = []
         this.handleSearch = this.handleSearch.bind(this)
     }
 
     getData() {
         ajax.get(templateUrls.getTemplates(), (data, status) => {
             if (status === 200 && data) {
-                this.data = data
-                this.renderCards(this.data, true)
+                this.renderCards(data, true)
             } else {
                 console.error('Ошибка получения данных:', status)
-                // В случае ошибки показываем пустой список
-                this.data = []
-                this.renderCards(this.data, true)
+                this.renderCards([], true)
             }
         })
     }
@@ -50,12 +46,16 @@ export class MainPage {
 
     handleSearch(searchTerm) {
         if (searchTerm) {
-            const filtered = this.data.filter(item => 
-                item.title.toLowerCase().includes(searchTerm.toLowerCase())
-            )
-            this.renderCards(filtered, false)
+            ajax.get(templateUrls.getTemplatesWithSearch(searchTerm), (data, status) => {
+                if (status === 200 && data) {
+                    this.renderCards(data, false)
+                } else {
+                    console.error('Ошибка получения данных при поиске:', status)
+                    this.renderCards([], false)
+                }
+            })
         } else {
-            this.renderCards(this.data, true)
+            this.getData()
         }
     }
 
@@ -89,8 +89,7 @@ export class MainPage {
     handleRemoveCard(cardId) {
         ajax.delete(templateUrls.deleteTemplate(cardId), (data, status) => {
             if (status === 200) {
-                this.data = this.data.filter(item => item.id !== cardId)
-                this.renderCards(this.data, true)
+                this.getData() // Обновляем данные после удаления
             } else {
                 console.error('Ошибка удаления карточки:', status)
             }
