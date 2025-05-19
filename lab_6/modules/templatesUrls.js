@@ -10,6 +10,10 @@ class TemplateUrls {
     getTemplateById(id) {
         return `${this.baseUrl}/templates/${id}`;
     }
+    
+    getTemplatesWithSearch(searchTerm) {
+        return `${this.baseUrl}/templates?title=${encodeURIComponent(searchTerm)}`;
+    }
 
     createTemplate() {
         return `${this.baseUrl}/templates`;

@@ -52,14 +52,22 @@ export class MainPage {
         `
     }
 
-    handleSearch(searchTerm) {
-        if (searchTerm) {
-            const filtered = this.data.filter(item => 
-                item.title.toLowerCase().includes(searchTerm.toLowerCase())
-            )
-            this.renderCards(filtered, false)
-        } else {
-            this.renderCards(this.data, true)
+    async handleSearch(searchTerm) {
+        try {
+            if (searchTerm) {
+                const result = await ajax.get(templateUrls.getTemplatesWithSearch(searchTerm));
+                if (result.status === 200 && result.data) {
+                    this.renderCards(result.data, false);
+                } else {
+                    console.error('Ошибка получения данных при поиске:', result.status);
+                    this.renderCards([], false);
+                }
+            } else {
+                await this.getData();
+            }
+        } catch (error) {
+            console.error('Ошибка при поиске:', error);
+            this.renderCards([], false);
         }
     }
 
